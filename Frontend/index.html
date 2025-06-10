@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SMS Transactions Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+ <!--        -->
+<body>
+  <header>
+    <h1>Mobile Payment SMS Insights</h1>
+  </header>
+
+   <!--        -->
+    <nav>
+        <ul>
+        <li><a href="#Home">Home</a></li>
+        <li><a href="#About">About</a></li>
+        <li><a href="#Contact">Contact</a></li>
+        <li><a href="#help">Help</a></li>
+        </ul>
+    </nav>
+
+<!--update or remove-->
+    <div class="hero-section">
+      <h2>Welcome to Your Mobile Payment Dashboard</h2>
+      <p>Gain insights into your SMS transactions and manage your mobile payments effectively.</p>
+      <button id="getStarted">Get Started</button> <!--update or remove-->
+      <button id="learnMore">Learn More</button> <!--update or remove-->
+    </div>
+
+    <!-- Add this after the hero section or wherever appropriate -->
+    <div class="import-section">
+      <h2>Import Transaction Data</h2>
+      <form id="import-form">
+        <div class="form-group">
+          <label for="xml-file">Upload SMS XML File:</label>
+          <input type="file" id="xml-file" accept=".xml" />
+        </div>
+        <button type="submit">Import Data</button>
+      </form>
+    </div>
+
+ <!--        -->
+  <main class="dashboard-container">
+    <aside class="sidebar">
+      <h2>Filters</h2>
+      <div class="filter-group">
+        <label for="transactionType">Transaction Type:</label>
+        <select id="transactionType">
+          <option value="">All</option>
+          <option>Incoming Money</option>
+          <option>Payments to Code Holders</option>
+          <option>Transfers to Mobile Numbers</option>
+          <option>Bank Deposits</option>
+          <option>Airtime Bill Payments</option>
+          <option>Cash Power Bill Payments</option>
+          <option>Third Party Transactions</option>
+          <option>Withdrawals from Agents</option>
+          <option>Bank Transfers</option>
+          <option>Bundle Purchases</option>
+        </select>
+      </div>
+      <!--    -->
+      <div class="filter-group">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" />
+      </div>
+      <div class="filter-group">
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" />
+      </div>
+      <div class="filter-group">
+        <label for="minAmount">Min Amount:</label>
+        <input type="number" id="minAmount" placeholder="e.g., 1000" />
+      </div>
+      <div class="filter-group">
+        <label for="maxAmount">Max Amount:</label>
+        <input type="number" id="maxAmount" placeholder="e.g., 50000" />
+      </div>
+      <div class="filter-group">
+        <label for="searchText">Search Text:</label>
+        <input type="text" id="searchText" placeholder="e.g., MTN" />
+      </div>
+
+      
+      <button id="applyFilters">Apply Filters</button>
+      <button id="resetFilters">Reset Filters</button>
+    </aside>
+
+    <section class="main-content">
+      <!-- Add the transaction form here, right before visualizations -->
+      <section class="transaction-form-section">
+        <h2>Add Transaction</h2>
+        <form id="transaction-form">
+          <div class="form-group">
+            <label for="transaction-date">Date:</label>
+            <input type="date" id="transaction-date" required>
+          </div>
+          <div class="form-group">
+            <label for="transaction-type">Type:</label>
+            <select id="transaction-type" required>
+              <option value="">Select Type</option>
+              <option value="incoming">Incoming Money</option>
+              <option value="outgoing">Outgoing Money</option>
+              <!-- Add more options as needed -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="transaction-amount">Amount (RWF):</label>
+            <input type="number" id="transaction-amount" required>
+          </div>
+          <div class="form-group">
+            <label for="transaction-description">Description:</label>
+            <textarea id="transaction-description"></textarea>
+          </div>
+          <button type="submit">Add Transaction</button>
+        </form>
+      </section>
+
+      <section class="visualizations">
+        <h2>Insights</h2>
+        <div class="chart-wrapper">
+          <div class="chart-card">
+            <h3>Transaction Volume by Type</h3>
+            <canvas id="typeChart"></canvas>
+          </div>
+          <div class="chart-card">
+            <h3>Monthly Volume</h3>
+            <canvas id="monthlyChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <section class="transaction-list">
+        <h2>Transactions</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Date</th>
+                <th>Amount (RWF)</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody id="transactionTableBody"></tbody>
+          </table>
+          <!-- Add pagination here -->
+          <div id="pagination" class="pagination-controls"></div>
+        </div>
+      </section>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 Mobile Payment Dashboard</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
